@@ -10,24 +10,24 @@ import Foundation
 import CircleMenu
 
 class CustomCircleButton : CircleMenu{
-
+    
 }
 extension CustomCircleButton : CircleMenuDelegate  {
     // configure buttons
     func circleMenu(_ circleMenu: CircleMenu, willDisplay button: UIButton, atIndex: Int){
-        
+        print("circleMenu(_ circleMenu: CircleMenu, willDisplay button: UIButton, atIndex: Int)")
     }
     // call before animation
     func circleMenu(_ circleMenu: CircleMenu, buttonWillSelected button: UIButton, atIndex: Int){
-        
+        print("circleMenu(_ circleMenu: CircleMenu, buttonWillSelected button: UIButton, atIndex: Int)")
     }
     // call after animation
     func circleMenu(_ circleMenu: CircleMenu, buttonDidSelected button: UIButton, atIndex: Int){
-        
+        print("circleMenu(_ circleMenu: CircleMenu, buttonDidSelected button: UIButton, atIndex: Int)")
     }
     
     // call upon cancel of the menu
     func menuCollapsed(_ circleMenu: CircleMenu){
-        
+        print("menuCollapsed(_ circleMenu: CircleMenu)")
     }
 }

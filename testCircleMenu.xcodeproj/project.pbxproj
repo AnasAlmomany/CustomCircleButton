@@ -18,6 +18,9 @@
 		F92BEB431FEA4BEE008C161A /* testCircleMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92BEB421FEA4BEE008C161A /* testCircleMenuTests.swift */; };
 		F92BEB4E1FEA4BEE008C161A /* testCircleMenuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92BEB4D1FEA4BEE008C161A /* testCircleMenuUITests.swift */; };
 		F92BEB5C1FEA4CCA008C161A /* CustomCircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92BEB5B1FEA4CCA008C161A /* CustomCircleButton.swift */; };
+		F92BEB5E1FEAA03C008C161A /* FloatingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92BEB5D1FEAA03C008C161A /* FloatingMenu.swift */; };
+		F9F80AE11FEBB64100AEA269 /* FloatingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F80AE01FEBB64100AEA269 /* FloatingVC.swift */; };
+		F9F80AE31FEBBA7100AEA269 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F80AE21FEBBA7100AEA269 /* TestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +64,9 @@
 		F92BEB4D1FEA4BEE008C161A /* testCircleMenuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testCircleMenuUITests.swift; sourceTree = "<group>"; };
 		F92BEB4F1FEA4BEE008C161A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F92BEB5B1FEA4CCA008C161A /* CustomCircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCircleButton.swift; sourceTree = "<group>"; };
+		F92BEB5D1FEAA03C008C161A /* FloatingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingMenu.swift; sourceTree = "<group>"; };
+		F9F80AE01FEBB64100AEA269 /* FloatingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingVC.swift; sourceTree = "<group>"; };
+		F9F80AE21FEBBA7100AEA269 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,11 +147,14 @@
 			children = (
 				F92BEB2D1FEA4BEE008C161A /* AppDelegate.swift */,
 				F92BEB2F1FEA4BEE008C161A /* ViewController.swift */,
+				F9F80AE21FEBBA7100AEA269 /* TestViewController.swift */,
 				F92BEB311FEA4BEE008C161A /* Main.storyboard */,
 				F92BEB341FEA4BEE008C161A /* Assets.xcassets */,
 				F92BEB361FEA4BEE008C161A /* LaunchScreen.storyboard */,
 				F92BEB391FEA4BEE008C161A /* Info.plist */,
 				F92BEB5B1FEA4CCA008C161A /* CustomCircleButton.swift */,
+				F92BEB5D1FEAA03C008C161A /* FloatingMenu.swift */,
+				F9F80AE01FEBB64100AEA269 /* FloatingVC.swift */,
 			);
 			path = testCircleMenu;
 			sourceTree = "<group>";
@@ -463,6 +472,9 @@
 			files = (
 				F92BEB5C1FEA4CCA008C161A /* CustomCircleButton.swift in Sources */,
 				F92BEB301FEA4BEE008C161A /* ViewController.swift in Sources */,
+				F92BEB5E1FEAA03C008C161A /* FloatingMenu.swift in Sources */,
+				F9F80AE11FEBB64100AEA269 /* FloatingVC.swift in Sources */,
+				F9F80AE31FEBBA7100AEA269 /* TestViewController.swift in Sources */,
 				F92BEB2E1FEA4BEE008C161A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
