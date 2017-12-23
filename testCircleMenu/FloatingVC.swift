@@ -11,9 +11,10 @@ import Foundation
 import UIKit
 
 class FloatingButtonController: UIViewController {
-    private(set) var button: UIButton!
+    private(set) var floatingView: UIView!
     private let window = FloatingButtonWindow()
-    
+    private var panGesture       = UIPanGestureRecognizer()
+
     required init?(coder aDecoder: NSCoder) {
         fatalError()
     }
@@ -26,55 +27,41 @@ class FloatingButtonController: UIViewController {
     }
     override func loadView() {
         let view = UIView()
-        let button = UIButton(type: .custom)
-        button.setTitle("Floating", for: .normal)
-        button.setTitleColor(UIColor.green, for: .normal)
-        button.backgroundColor = UIColor.white
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowRadius = 3
-        button.layer.shadowOpacity = 0.8
-        button.layer.shadowOffset = CGSize.zero
-        button.sizeToFit()
-        button.frame = CGRect(origin: CGPoint(x:10,y: 10), size: button.bounds.size)
-        button.autoresizingMask = []
-        view.addSubview(button)
+        let customButton = CustomCircleButton(
+                        frame: CGRect(x: 200, y: 200, width: 50, height: 50),
+                        normalIcon:"menu_Icon",
+                        selectedIcon:"menu_Icon",
+                        buttonsCount: 5,
+                        duration: 4,
+                        distance: 120)
+        customButton.imageView?.contentMode = .scaleAspectFit
+        customButton.setTitleColor(UIColor.green, for: .normal)
+        customButton.layer.shadowColor = UIColor.black.cgColor
+        customButton.layer.shadowRadius = 3
+        customButton.layer.shadowOpacity = 0.8
+        customButton.layer.shadowOffset = CGSize.zero
+        customButton.sizeToFit()
+        customButton.frame = CGRect(x: 200, y: 200, width: 50, height: 50)
+        customButton.autoresizingMask = []
+        customButton.delegate = self
+    
+        view.addSubview(customButton)
         self.view = view
-        self.button = button
-        window.button = button
-//        let panner = UIPanGestureRecognizer(target: self, action: #selector())
-//        button.addGestureRecognizer(panner)
+        self.floatingView = customButton
+        window.button = customButton
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(draggedView(_:)))
+        customButton.addGestureRecognizer(panGesture)
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        snapButtonToSocket()
     }
-    private func snapButtonToSocket() {
-        var bestSocket = CGPoint.zero
-        var distanceToBestSocket = CGFloat.infinity
-        let center = button.center
-        for socket in sockets {
-            let distance = hypot(center.x - socket.x, center.y - socket.y)
-            if distance < distanceToBestSocket {
-                distanceToBestSocket = distance
-                bestSocket = socket
-            }
-        }
-        button.center = bestSocket
+
+    @objc func draggedView(_ sender:UIPanGestureRecognizer){
+        self.view.bringSubview(toFront: floatingView)
+        let translation = sender.translation(in: self.view)
+        floatingView.center = CGPoint(x: floatingView.center.x + translation.x, y: floatingView.center.y + translation.y)
+        sender.setTranslation(CGPoint.zero, in: self.view)
     }
-    
-    private var sockets: [CGPoint] {
-        let buttonSize = button.bounds.size
-        let rect = view.bounds.insetBy(dx: 4 + buttonSize.width / 2, dy: 4 + buttonSize.height / 2)
-        let sockets: [CGPoint] = [
-            CGPoint(x:rect.minX,y: rect.minY),
-            CGPoint(x:rect.minX,y: rect.minY),
-            CGPoint(x:rect.minX,y: rect.minY),
-            CGPoint(x:rect.minX,y: rect.minY),
-            CGPoint(x:rect.minX,y: rect.minY)
-        ]
-        return sockets
-    }
-    
 }
 private class FloatingButtonWindow: UIWindow {
     var button: UIButton?

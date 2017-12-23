@@ -21,10 +21,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-    func floatingButtonWasTapped() {
-        let alert = UIAlertController(title: "Warning", message: "Don't do that!", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Sorry…", style: .default, handler: nil)
-        alert.addAction(action)
-        window?.rootViewController?.present(alert, animated: true, completion: nil)
-    }
+
 }
