@@ -10,7 +10,7 @@ import Foundation
 import CircleMenu
 
 class CustomCircleButton : CircleMenu{
-    
+
 }
 extension CustomCircleButton : CircleMenuDelegate  {
     // configure buttons

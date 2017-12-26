@@ -91,7 +91,7 @@ open class CircleMenu: UIButton {
   /// The object that acts as the delegate of the circle menu.
   @IBOutlet weak open var delegate: AnyObject? //CircleMenuDelegate?
   
-  var buttons: [UIButton]?
+  public var buttons: [UIButton]?
   weak var platform: UIView?
   
   fileprivate var customNormalIconView: UIImageView?

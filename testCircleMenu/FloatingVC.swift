@@ -9,6 +9,7 @@
 import Foundation
 
 import UIKit
+import CircleMenu
 
 class FloatingButtonController: UIViewController {
     private(set) var floatingView: UIView!
@@ -24,6 +25,7 @@ class FloatingButtonController: UIViewController {
         window.windowLevel = CGFloat.greatestFiniteMagnitude
         window.isHidden = false
         window.rootViewController = self
+        NotificationCenter.default.addObserver(self, selector:  #selector(FloatingButtonController.keyboardDidShow(note:)), name: Notification.Name.UIKeyboardDidShow, object: nil)
     }
     override func loadView() {
         let view = UIView()
@@ -32,7 +34,7 @@ class FloatingButtonController: UIViewController {
                         normalIcon:"menu_Icon",
                         selectedIcon:"menu_Icon",
                         buttonsCount: 5,
-                        duration: 4,
+                        duration: 0.2,
                         distance: 120)
         customButton.imageView?.contentMode = .scaleAspectFit
         customButton.setTitleColor(UIColor.green, for: .normal)
@@ -48,7 +50,7 @@ class FloatingButtonController: UIViewController {
         view.addSubview(customButton)
         self.view = view
         self.floatingView = customButton
-        window.button = customButton
+        window.menu = customButton
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(draggedView(_:)))
         customButton.addGestureRecognizer(panGesture)
     }
@@ -62,9 +64,33 @@ class FloatingButtonController: UIViewController {
         floatingView.center = CGPoint(x: floatingView.center.x + translation.x, y: floatingView.center.y + translation.y)
         sender.setTranslation(CGPoint.zero, in: self.view)
     }
+    @objc func keyboardDidShow(note: NSNotification) {
+        window.windowLevel = 0
+        window.windowLevel = CGFloat.greatestFiniteMagnitude
+        window.menu?.layer.zPosition = CGFloat.greatestFiniteMagnitude
+    }
+}
+extension FloatingButtonController : CircleMenuDelegate  {
+    // configure buttons
+    func circleMenu(_ circleMenu: CircleMenu, willDisplay button: UIButton, atIndex: Int){
+        print("circleMenu(_ circleMenu: CircleMenu, willDisplay button: UIButton, atIndex: Int)")
+    }
+    // call before animation
+    func circleMenu(_ circleMenu: CircleMenu, buttonWillSelected button: UIButton, atIndex: Int){
+        print("circleMenu(_ circleMenu: CircleMenu, buttonWillSelected button: UIButton, atIndex: Int)")
+    }
+    // call after animation
+    func circleMenu(_ circleMenu: CircleMenu, buttonDidSelected button: UIButton, atIndex: Int){
+        print("circleMenu(_ circleMenu: CircleMenu, buttonDidSelected button: UIButton, atIndex: Int)")
+    }
+    
+    // call upon cancel of the menu
+    func menuCollapsed(_ circleMenu: CircleMenu){
+        print("menuCollapsed(_ circleMenu: CircleMenu)")
+    }
 }
 private class FloatingButtonWindow: UIWindow {
-    var button: UIButton?
+    var menu: CustomCircleButton?
     init() {
         super.init(frame: UIScreen.main.bounds)
         backgroundColor = nil
@@ -73,8 +99,16 @@ private class FloatingButtonWindow: UIWindow {
         fatalError("init(coder:) has not been implemented")
     }
     fileprivate override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        guard let button = button else { return false }
-        let buttonPoint = convert(point, to: button)
-        return button.point(inside: buttonPoint, with: event)
+        if let menu = menu {
+            let insideMenu = menu.point(inside:  convert(point, to: menu), with: event)
+            var insideButtons = false
+            if let pointsInsideButtons = menu.buttons?.map({ (btn) -> Bool in
+                return btn.point(inside:  convert(point, to: btn), with: event)
+            }){
+                insideButtons =  pointsInsideButtons.contains(true)
+            }
+            return insideMenu || insideButtons
+        }
+        return false
     }
 }
